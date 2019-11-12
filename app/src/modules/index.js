@@ -1,3 +1,5 @@
+const Router = require('koa-router')
+
 const modulesHelper = require('../helpers/modules')
 
 const modules = require('./modules')
@@ -17,25 +19,33 @@ const registerRoutes = (app, controllers, baseRoute = '/') => {
 }
 
 const registerModules = app => {
-  const dependenciesQueue = modulesHelper.resolveDependsToQueue(modules.meta)
-  const orderedModules = dependenciesQueue.map(
-    ({ name }) => modules.meta.name === name,
+  const modulesMeta = modules.map(({ moduleMeta }) => moduleMeta)
+  const dependenciesQueue = modulesHelper.resolveDependsToQueue(modulesMeta)
+
+  const orderedModules = dependenciesQueue.map(({ name }) =>
+    modules.find(({ moduleMeta }) => moduleMeta.name === name),
   )
 
   const exportDataByModule = {}
 
   for (let module of orderedModules) {
-    const { name, dependsOn, baseRoute } = module.meta
+    const { name, dependsOn, baseRoute } = module.moduleMeta
 
-    const dependsOnData = dependsOn.reduce((acc, depName) => {
-      acc[depName] = exportDataByModule[depName]
-    }, {})
+    const dependsOnData =
+      dependsOn &&
+      dependsOn.reduce((acc, depName) => {
+        acc[depName] = exportDataByModule[depName]
+      }, {})
 
     const moduleData = module.moduleFabric(app, dependsOnData)
     exportDataByModule[name] = moduleData.exports
 
-    if (moduleData.controllers) {
-      registerRoutes(app, moduleData.controllers, baseRoute)
+    if (moduleData.controller) {
+      registerRoutes(app, moduleData.controller, baseRoute)
     }
+
+    console.log(`[MODULE]: ${name} was registered`)
   }
 }
+
+exports.registerModules = registerModules

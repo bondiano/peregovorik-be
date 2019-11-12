@@ -28,10 +28,10 @@ app.use(
   }),
 )
 
-app.use(passport.initialize())(async () => {
-  await registerModules(app)
+app.use(passport.initialize())
 
-  app.listen(config.PORT, () =>
-    console.log(`PEREGOVORKI API started on ${config.PORT}`),
-  )
-})()
+registerModules(app)
+
+app.listen(config.PORT, () =>
+  console.log(`PEREGOVORKI API started on ${config.PORT}`),
+)

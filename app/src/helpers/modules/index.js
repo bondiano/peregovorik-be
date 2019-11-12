@@ -1,2 +1,3 @@
-const resolveDependsToQueue = require('./resolveDependsToQueue')
+const { resolveDependsToQueue } = require('./resolveDependsToQueue')
+
 exports.resolveDependsToQueue = resolveDependsToQueue

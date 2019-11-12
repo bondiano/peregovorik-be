@@ -43,9 +43,11 @@ const resolveDependsToQueue = modules => {
 
   const overallOrder = graph.overallOrder().reverse() // It must be a queue as I want :D
 
-  return overallOrder.map(name => {
-    return modules.find(module => module.name === name)
-  })
+  return overallOrder
+    .map(name => {
+      return modules.find(module => module.name === name)
+    })
+    .filter(Boolean)
 }
 
 exports.resolveDependsToQueue = resolveDependsToQueue
