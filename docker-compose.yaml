@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  api:
+    build: ./
+    restart: on-failure
+    ports:
+      - "${PORT}:${PORT}"
+    command:
+      - "dev"
+    networks:
+      - appnet
+    env_file:
+      - .env
+  mongo:
+    image: mongo:4.2
+    restart: on-failure
+    volumes:
+      - data_mongo:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - appnet
+  mongo_admin:
+    image: mongo-express
+    depends_on:
+      - mongo
+    networks:
+      - appnet
+    ports:
+      - "${MONGO_ADMIN_PORT}:8081"
+    env_file:
+      - .env
+networks:
+  appnet:
+volumes:
+  data_mongo:
+    driver: local

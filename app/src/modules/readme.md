@@ -1,0 +1,1 @@
+`index.js` file used for register module dependencies and export module
