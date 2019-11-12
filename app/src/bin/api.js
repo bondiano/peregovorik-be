@@ -9,6 +9,8 @@ const passport = require('koa-passport')
 const app = new Koa()
 const config = require('../config')
 
+require('../bootstrap')
+
 const { registerModules } = require('../modules')
 
 app.use(helmet())

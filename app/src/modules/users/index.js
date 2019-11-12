@@ -1,11 +1,11 @@
-const createController = require('./users.controller.js')
+const createController = require('./users.controller')
 const createServices = require('./users.services')
 
 exports.moduleFabric = app => {
   const services = createServices()
 
   return {
-    controller: createController(services),
+    controller: createController({ services }),
     exports: {},
   }
 }

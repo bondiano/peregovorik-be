@@ -77,7 +77,4 @@ const createRepository = Model => ({
     }
   },
 })
-
-module.exports = {
-  createRepository,
-}
+exports.createRepository = createRepository

@@ -9,7 +9,7 @@ const registerRoutes = (app, controllers, baseRoute = '/') => {
     prefix: baseRoute,
   })
 
-  Object.values(controllers).forEach(controller => {
+  controllers.forEach(controller => {
     const method = controller.method.toLowerCase()
 
     router[method](controller.path, ...controller.handlers)
