@@ -1,4 +1,4 @@
-const registerControllers = controllerModule => {
+function registerControllers(controllerModule) {
   const controllers = []
   let dependencies
 
@@ -7,7 +7,7 @@ const registerControllers = controllerModule => {
     return controllers
   }
 
-  return (method, path, ...handlers) => {
+  return function controller(method, path, ...handlers) {
     const handlersWithDeps = handlers.reduce((acc, handler) => {
       const handlerWithDeps = (ctx, next) => handler(ctx, next, dependencies)
       acc.push(handlerWithDeps)

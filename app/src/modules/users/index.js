@@ -6,7 +6,9 @@ exports.moduleFabric = app => {
 
   return {
     controller: createController({ services }),
-    exports: {},
+    exports: {
+      services,
+    },
   }
 }
 

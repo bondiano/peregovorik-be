@@ -35,6 +35,7 @@ const registerModules = app => {
       dependsOn &&
       dependsOn.reduce((acc, depName) => {
         acc[depName] = exportDataByModule[depName]
+        return acc
       }, {})
 
     const moduleData = module.moduleFabric(app, dependsOnData)

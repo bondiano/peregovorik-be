@@ -2,9 +2,8 @@ const { registerControllers } = require('../../helpers/registerControllers')
 
 const createController = registerControllers(module)
 
-createController('post', '/create', async (ctx, next, deps) => {
-  const { username, password, email } = ctx.request.body
-  const user = await deps.services.createUser({ username, password, email })
+createController('get', '/', async (ctx, next, { services }) => {
+  const users = await services.getAll()
 
-  ctx.response.body = user
+  ctx.response.body = users
 })

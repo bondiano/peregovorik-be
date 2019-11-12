@@ -20,8 +20,10 @@ const errorHandler = async (ctx, next) => {
       ctx.response.body = successResponse(ctx.response.body)
     }
   } catch (e) {
-    console.log('Handled error: ', e)
-    ctx.response.status = e.httpErrorCode
+    console.error('Handled error', e)
+
+    ctx.response.status =
+      typeof e.httpErrorCode === 'number' ? e.httpErrorCode : 500
     ctx.response.body = errorResponse(e)
   }
 }
