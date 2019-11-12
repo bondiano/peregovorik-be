@@ -9,9 +9,10 @@ const createRepository = Model => ({
    * @param {Object} options
    * @return {*}
    */
-  getAll: async (conditions = {}, projection = null, options) => {
+  async getAll(conditions = {}, projection = null, options) {
     try {
-      return await Model.find(conditions, projection, options)
+      const data = await Model.find(conditions, projection, options)
+      return data
     } catch (e) {
       throw mongoErrorsHandler(e, Model.modelName)
     }
@@ -29,11 +30,12 @@ const createRepository = Model => ({
    * Create new entity
    *
    * @param {Object | Array} data - model data to create entity
-   * @return {Promise<void>}
+   * @return {Promise<any>}
    */
-  create: async data => {
+  async create(data) {
     try {
-      return await Model.create(data)
+      const created = await Model.create(data)
+      return created
     } catch (e) {
       throw mongoErrorsHandler(e, Model.modelName)
     }
@@ -54,9 +56,10 @@ const createRepository = Model => ({
    * @param options
    * @return {Promise<*|TSchema>}
    */
-  findOne: async (conditions = {}, projection = null, options) => {
+  async findOne(conditions = {}, projection = null, options) {
     try {
-      return await Model.findOne(conditions, projection, options)
+      const data = await Model.findOne(conditions, projection, options)
+      return data
     } catch (e) {
       throw mongoErrorsHandler(e, Model.modelName)
     }
@@ -67,14 +70,16 @@ const createRepository = Model => ({
    *
    * @param id
    * @param data
-   * @return {Promise<void>}
+   * @return {Promise<any>}
    */
-  updateById: async (id, data) => {
+  async updateById(id, data) {
     try {
-      return await Model.findByIdAndUpdate(id, data, { new: true })
+      const data = await Model.findByIdAndUpdate(id, data, { new: true })
+      return data
     } catch (e) {
       throw mongoErrorsHandler(e, Model.modelName)
     }
   },
 })
+
 exports.createRepository = createRepository

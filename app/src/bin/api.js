@@ -13,6 +13,8 @@ require('../bootstrap')
 
 const { registerModules } = require('../modules')
 
+const { errorHandler } = require('../helpers/errorHandler')
+
 app.use(helmet())
 
 if (process.env.NODE_ENV === 'development') {
@@ -25,12 +27,13 @@ app.use(
   bodyParser({
     enableTypes: ['json'],
     onerror: (err, ctx) => {
-      ctx.throw('body parse error', err, 422)
+      ctx.throw('Body parse error', err, 422)
     },
   }),
 )
 
 app.use(passport.initialize())
+app.use(errorHandler)
 
 registerModules(app)
 
