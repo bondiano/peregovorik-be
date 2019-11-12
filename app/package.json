@@ -8,9 +8,11 @@
   },
   "scripts": {
     "start": "node ./src/bin/api.js",
-    "dev": "nodemon --watch src ./src/bin/api.js"
+    "dev": "nodemon --watch src ./src/bin/api.js",
+    "test": "ava --verbose --config tests.config.js --color"
   },
   "devDependencies": {
+    "ava": "^2.4.0",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
@@ -19,6 +21,7 @@
   },
   "dependencies": {
     "@koa/cors": "^3.0.0",
+    "dependency-graph": "^0.8.0",
     "dotenv": "^8.2.0",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
