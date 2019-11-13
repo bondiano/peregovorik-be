@@ -5,6 +5,7 @@ const errorTypes = {
   NOT_FOUND: 'NOT_FOUND',
   BAD_REQUEST: 'BAD_REQUEST',
   FORBIDDEN: 'FORBIDDEN',
+  UNAUTHORIZED: 'UNAUTHORIZED',
 }
 
 module.exports = errorTypes

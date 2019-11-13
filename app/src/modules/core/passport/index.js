@@ -5,7 +5,7 @@ const { Strategy: JWTStrategy, ExtractJwt } = require('passport-jwt')
 
 const { UserNotFound, InvalidCredentials } = require('./exceptions')
 
-exports.moduleFabric = (app, { jwt, users, config }) => {
+exports.moduleFabric = (app, { users, config }) => {
   const optionsJWT = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: config.JWT_SECRET,

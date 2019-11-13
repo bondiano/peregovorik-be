@@ -19,7 +19,11 @@ module.exports = () => {
 
   const getAll = conditions => userRepository.getAll(conditions)
 
-  const getById = id => userRepository.getById(id)
+  const getById = async id => {
+    const user = await userRepository.getById(id)
+
+    return formatUser(user)
+  }
 
   const findOne = async conditions => {
     const user = await userRepository.findOne(conditions)
