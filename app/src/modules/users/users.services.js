@@ -19,8 +19,29 @@ module.exports = () => {
 
   const getAll = conditions => userRepository.getAll(conditions)
 
+  const getById = id => userRepository.getById(id)
+
+  const findOne = async conditions => {
+    const user = await userRepository.findOne(conditions)
+
+    return formatUser(user)
+  }
+
+  const verifyPassword = async (username, password) => {
+    const user = await userRepository.findOne({ username })
+
+    if (!user) {
+      return false
+    }
+
+    return user.verifyPassword(password)
+  }
+
   return {
     getAll,
     createUser,
+    getById,
+    findOne,
+    verifyPassword,
   }
 }

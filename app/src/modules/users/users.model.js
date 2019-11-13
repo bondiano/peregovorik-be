@@ -54,7 +54,7 @@ userSchema.pre('save', async function(next) {
 })
 
 userSchema.methods.verifyPassword = function(password) {
-  return argon2.verify(password, this.password)
+  return argon2.verify(this.password, password)
 }
 
 const User = mongoose.model('User', userSchema)

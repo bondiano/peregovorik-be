@@ -1,4 +1,4 @@
-const { registerControllers } = require('../../helpers/registerControllers')
+const { registerControllers } = require('@/helpers/registerControllers')
 
 const createController = registerControllers(module)
 

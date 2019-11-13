@@ -38,7 +38,7 @@ const registerModules = app => {
         return acc
       }, {})
 
-    const moduleData = module.moduleFabric(app, dependsOnData)
+    const moduleData = module.moduleFabric(app, dependsOnData) || {}
     exportDataByModule[name] = moduleData.exports
 
     if (moduleData.controller) {

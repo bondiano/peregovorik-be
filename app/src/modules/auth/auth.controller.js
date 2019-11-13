@@ -1,4 +1,5 @@
-const { registerControllers } = require('../../helpers/registerControllers')
+const passport = require('koa-passport')
+const { registerControllers } = require('@/helpers/registerControllers')
 
 const createController = registerControllers(module)
 
@@ -15,12 +16,23 @@ createController(
   },
 )
 
-createController('post', '/login', async (ctx, next, { services }) => {
-  const { username, password, email } = ctx.request.body
-  const user = await services.createUser({ username, password, email })
-  const token = jwtServices.sign({ id: user._id })
+createController('post', '/login', async (ctx, next, { jwtServices }) => {
+  await passport.authenticate(
+    'local',
+    { session: false },
+    (err, user, info) => {
+      if (err) {
+        throw err
+      }
 
-  ctx.response.body = user
+      const payload = {
+        id: user._id,
+      }
+
+      const token = jwtServices.sign(payload)
+      ctx.response.body = { user, token }
+    },
+  )(ctx, next)
 })
 
 createController('get', '/me', async (ctx, next, deps) => {
