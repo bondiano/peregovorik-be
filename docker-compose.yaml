@@ -15,20 +15,6 @@ services:
       - ./app:/api
     env_file:
       - .env
-  swagger:
-    build: ./
-    container_name: swagger
-    restart: on-failure
-    ports:
-      - "${SWAGGER_PORT}:${SWAGGER_PORT}"
-    command:
-      - "swagger:dev"
-    networks:
-      - appnet
-    volumes:
-      - ./app:/api
-    env_file:
-      - .env
   mongo:
     image: mongo:4.2
     container_name: mongo

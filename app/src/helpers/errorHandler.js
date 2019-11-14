@@ -15,7 +15,12 @@ const errorResponse = error => ({
 const errorHandler = async (ctx, next) => {
   try {
     await next()
-    if (ctx.response.body) {
+    const needWrap =
+      ctx.response.body &&
+      typeof ctx.response.body === 'object' &&
+      !ctx.response.status
+
+    if (needWrap) {
       ctx.response.status = 200
       ctx.response.body = successResponse(ctx.response.body)
     }
