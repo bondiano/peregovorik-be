@@ -33,13 +33,10 @@ swaggerApp.get('/json', (req, res) => {
 
 swaggerApp.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
-swaggerApp.listen(
-  config.SWAGGER_PORT,
-  config.SWAGGER_HOST,
-  `Swagger listen: ${config.SWAGGER_HOST}:${config.SWAGGER_PORT}`,
+swaggerApp.listen(config.SWAGGER_PORT, config.SWAGGER_HOST, () =>
+  console.log(`Swagger listen: ${config.SWAGGER_HOST}:${config.SWAGGER_PORT}`),
 )
 
-process.on('SIGINT', async () => {
-  await swaggerApp.close()
+process.on('SIGINT', () => {
   process.exit(0)
 })

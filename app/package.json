@@ -9,6 +9,8 @@
   "scripts": {
     "start": "node ./src/bin/api.js",
     "dev": "nodemon --watch src ./src/bin/api.js",
+    "swagger:dev": "nodemon --watch src ./src/bin/swagger.js",
+    "swagger:prod": "node ./src/bin/swagger.js",
     "test": "ava --verbose --config tests.config.js --color"
   },
   "devDependencies": {

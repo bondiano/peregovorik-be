@@ -12,7 +12,7 @@ const { Schema } = mongoose
  *        type: string
  *      email:
  *        type: string
- *      password:
+ *      createdAt:
  *        type: string
  *    required:
  *      - username

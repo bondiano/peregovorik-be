@@ -53,6 +53,8 @@ createController('post', '/login', async (ctx, next, { jwtServices }) => {
  * @swagger
  * /auth/me:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     description: returns user data by token
  */
 createController('get', '/me', authHandler, async ctx => {
