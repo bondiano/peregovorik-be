@@ -5,6 +5,12 @@ const { authHandler } = require('@/helpers/authHandler')
 
 const createController = registerControllers(module)
 
+/**
+ * @swagger
+ * /auth/create:
+ *   post:
+ *     description: create new user
+ */
 createController(
   'post',
   '/create',
@@ -18,6 +24,12 @@ createController(
   },
 )
 
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     description: login user
+ */
 createController('post', '/login', async (ctx, next, { jwtServices }) => {
   await passport.authenticate(
     'local',
@@ -37,6 +49,12 @@ createController('post', '/login', async (ctx, next, { jwtServices }) => {
   )(ctx, next)
 })
 
+/**
+ * @swagger
+ * /auth/me:
+ *   get:
+ *     description: returns user data by token
+ */
 createController('get', '/me', authHandler, async ctx => {
   const { user } = ctx
 
