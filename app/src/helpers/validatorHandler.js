@@ -20,8 +20,9 @@ const checkErrors = (scheme, target = 'request.body') => async (ctx, next) => {
     ctx.body = result
   } catch (e) {
     throw new ValidationError(e.details)
+  } finally {
+    await next()
   }
-  await next()
 }
 
 /**
@@ -36,6 +37,7 @@ const returnErrors = async (ctx, next) => {
     const error = new ValidationError(ctx.validationErrors)
     throw error
   }
+
   await next()
 }
 

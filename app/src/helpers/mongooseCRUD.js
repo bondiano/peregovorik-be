@@ -7,7 +7,7 @@ const createRepository = Model => ({
    * @param {Object} conditions
    * @param {Object|String} projection
    * @param {Object} options
-   * @return {*}
+   * @return {Promise<any>}
    */
   async getAll(conditions = {}, projection = null, options) {
     try {
@@ -19,10 +19,26 @@ const createRepository = Model => ({
   },
 
   /**
+   * Paginate with mongoose-paginate(-v2) interface
+   *
+   * @param {Object} query
+   * @param {Object} options
+   * @return {Promise<any>}
+   */
+  paginate(query, options) {
+    try {
+      const data = await Model.paginate(query, options)
+      return data
+    } catch (e) {
+      throw mongoErrorsHandler(e, Model.modelName)
+    }
+  }
+
+  /**
    * Get entity by id
    *
    * @param {string} id - mongo id
-   * @return {Query}
+   * @return {Promise<any>}
    */
   getById: id => Model.findById(id),
 
@@ -44,7 +60,7 @@ const createRepository = Model => ({
   /**
    * Delete by id
    * @param {string} id - mongo id
-   * @return {Query}
+   * @return {Promise<any>}
    */
   deleteById: id => Model.findByIdAndDelete(id),
 
@@ -54,7 +70,7 @@ const createRepository = Model => ({
    * @param conditions
    * @param projection
    * @param options
-   * @return {Promise<*|TSchema>}
+   * @return {Promise<any>}
    */
   async findOne(conditions = {}, projection = null, options) {
     try {
