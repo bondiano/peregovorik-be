@@ -2,6 +2,9 @@ const passport = require('koa-passport')
 
 const { registerControllers } = require('@/helpers/registerControllers')
 const { authHandler } = require('@/helpers/authHandler')
+const { validatorHandler } = require('@/helpers/validatorHandler')
+
+const { loginSchema, createUserSchema } = require('./auth.validators')
 
 const createController = registerControllers(module)
 
@@ -14,6 +17,7 @@ const createController = registerControllers(module)
 createController(
   'post',
   '/create',
+  validatorHandler(createUserSchema),
   async (ctx, next, { usersServices, jwtServices }) => {
     const { username, password, email } = ctx.request.body
     const user = await usersServices.createUser({ username, password, email })
@@ -30,24 +34,29 @@ createController(
  *   post:
  *     description: login user
  */
-createController('post', '/login', async (ctx, next, { jwtServices }) => {
-  await passport.authenticate(
-    'local',
-    { session: false },
-    (err, user, info) => {
-      if (err) {
-        throw err
-      }
+createController(
+  'post',
+  '/login',
+  validatorHandler(loginSchema),
+  async (ctx, next, { jwtServices }) => {
+    await passport.authenticate(
+      'local',
+      { session: false },
+      (err, user, info) => {
+        if (err) {
+          throw err
+        }
 
-      const payload = {
-        id: user._id,
-      }
+        const payload = {
+          id: user._id,
+        }
 
-      const token = jwtServices.sign(payload)
-      ctx.response.body = { user, token }
-    },
-  )(ctx, next)
-})
+        const token = jwtServices.sign(payload)
+        ctx.response.body = { user, token }
+      },
+    )(ctx, next)
+  },
+)
 
 /**
  * @swagger
