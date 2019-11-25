@@ -4,6 +4,8 @@ const argon2 = require('argon2')
 
 const { Schema } = mongoose
 
+const { Types } = Schema
+
 /**
  * @swagger
  * definitions:
@@ -13,6 +15,16 @@ const { Schema } = mongoose
  *        type: string
  *      email:
  *        type: string
+ *      firstName:
+ *        type: string
+ *      lastName:
+ *        type: string
+ *      about:
+ *        type: string
+ *      avatar:
+ *        type: string
+ *      events:
+ *        type: [Event]
  *      createdAt:
  *        type: string
  *    required:
@@ -31,6 +43,14 @@ const userSchema = new Schema(
       unique: true,
     },
     password: String,
+    firstName: String,
+    lastName: String,
+    about: String,
+    avatar: String,
+    events: {
+      type: [Types.ObjectId],
+      default: [],
+    },
   },
   {
     timestamps: {

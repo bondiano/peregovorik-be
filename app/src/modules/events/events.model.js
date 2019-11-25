@@ -3,6 +3,7 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 
 const { Schema } = mongoose
 
+const { Types } = Schema
 /**
  * @swagger
  * definitions:
@@ -12,6 +13,10 @@ const { Schema } = mongoose
  *        type: string
  *      description:
  *        type: string
+ *      images:
+ *        type: [string]
+ *      room:
+ *        type: Room
  *      createdAt:
  *        type: string
  *
@@ -24,6 +29,11 @@ const eventSchema = new Schema(
     description: {
       type: String,
     },
+    images: {
+      type: [String],
+      default: [],
+    },
+    room: Types.ObjectId,
   },
   {
     timestamps: {
