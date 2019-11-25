@@ -6,7 +6,7 @@ const { formatUser } = require('./users.formatter')
 
 const userRepository = createRepository(userModel)
 
-module.exports = () => {
+module.exports = ({ eventsServices }) => {
   const createUser = async ({ username, email, password }) => {
     const user = await userRepository.create({
       username,
@@ -16,8 +16,6 @@ module.exports = () => {
 
     return formatUser(user)
   }
-
-  const getAll = conditions => userRepository.getAll(conditions)
 
   const getById = async id => {
     const user = await userRepository.getById(id)
@@ -42,7 +40,6 @@ module.exports = () => {
   }
 
   return {
-    getAll,
     createUser,
     getById,
     findOne,

@@ -4,20 +4,26 @@ const createController = registerControllers(module)
 
 /**
  * @swagger
- * /users:
+ * /users/{id}:
  *   get:
- *     description: get all users
+ *     tags:
+ *      - Users
+ *     description: Get user by id
+ *     parameters:
+ *       -
+ *         name: id
+ *         in: path
+ *         description: User id
+ *         required: true
  *     responses:
  *       200:
- *         description: get list of users
  *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/User'
+ *           type: '#/components/schemas/User'
  *
  */
-createController('get', '/', async (ctx, next, { services }) => {
-  const users = await services.getAll()
+createController('get', '/:id', async (ctx, next, { services }) => {
+  const { id } = ctx.request.params
+  const user = await services.getById(id)
 
-  ctx.response.body = users
+  ctx.response.body = user
 })

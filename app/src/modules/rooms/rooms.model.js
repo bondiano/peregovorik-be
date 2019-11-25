@@ -7,23 +7,30 @@ const { Types } = Schema
 
 /**
  * @swagger
- * definitions:
- *  Room:
- *    properties:
- *      roomNumber
- *         type: number
- *      description:
- *        type: string
- *      city:
- *        type: string
- *      images:
- *        type: [string]
- *      equipment:
- *        type: [string]
- *      events:
- *        type: [Event]
- *      createdAt:
- *        type: string
+ * components:
+ *   schemas:
+ *     Room:
+ *       properties:
+ *         roomNumber:
+ *           type: number
+ *         description:
+ *           type: string
+ *         city:
+ *           type: string
+ *         images:
+ *           type: array
+ *           items:
+ *             type: string
+ *         equipment:
+ *           type: array
+ *           items:
+ *             type: string
+ *         events:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Event'
+ *         createdAt:
+ *           type: string
  *
  */
 const roomSchema = new Schema(

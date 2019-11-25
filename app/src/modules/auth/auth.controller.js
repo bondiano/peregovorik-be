@@ -12,7 +12,26 @@ const createController = registerControllers(module)
  * @swagger
  * /auth/create:
  *   post:
- *     description: create new user
+ *     tags:
+ *       - Auth
+ *     description: Create new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         schema:
+ *           $ref : '#/components/schemas/User'
  */
 createController(
   'post',
@@ -32,7 +51,22 @@ createController(
  * @swagger
  * /auth/login:
  *   post:
- *     description: login user
+ *     tags:
+ *       - Auth
+ *     description: Login user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
  */
 createController(
   'post',
@@ -62,9 +96,15 @@ createController(
  * @swagger
  * /auth/me:
  *   get:
+ *     tags:
+ *       - Auth
  *     security:
- *       - bearerAuth: []
- *     description: returns user data by token
+ *       - BearerAuth: []
+ *     description: Returns user data by token
+ *     responses:
+ *       200:
+ *         schema:
+ *           $ref : '#/components/schemas/User'
  */
 createController('get', '/me', authHandler, async ctx => {
   const { user } = ctx

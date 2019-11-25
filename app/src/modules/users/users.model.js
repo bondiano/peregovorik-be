@@ -8,29 +8,29 @@ const { Types } = Schema
 
 /**
  * @swagger
- * definitions:
- *  User:
- *    properties:
- *      username:
- *        type: string
- *      email:
- *        type: string
- *      firstName:
- *        type: string
- *      lastName:
- *        type: string
- *      about:
- *        type: string
- *      avatar:
- *        type: string
- *      events:
- *        type: [Event]
- *      createdAt:
- *        type: string
- *    required:
- *      - username
- *      - email
- *
+ * components:
+ *   schemas:
+ *     User:
+ *       properties:
+ *         username:
+ *           type: string
+ *         email:
+ *           type: string
+ *         firstName:
+ *           type: string
+ *         lastName:
+ *           type: string
+ *         about:
+ *           type: string
+ *         avatar:
+ *           type: string
+ *         events:
+ *           $ref: '#/components/schemas/Event'
+ *         createdAt:
+ *           type: string
+ *       required:
+ *         - username
+ *         - email
  */
 const userSchema = new Schema(
   {

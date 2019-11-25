@@ -6,14 +6,15 @@ const createController = registerControllers(module)
  * @swagger
  * /events:
  *   get:
- *     description: get all events
+ *     tags:
+ *      - Events
+ *     description: Get list of events (only room id is available here)
  *     responses:
  *       200:
- *         description: get list of events
  *         schema:
  *           type: array
  *           items:
- *             $ref: '#/definitions/User'
+ *             $ref: '#/components/schemas/User'
  *
  */
 createController('get', '/', async (ctx, next, { services }) => {

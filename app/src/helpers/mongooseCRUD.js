@@ -25,14 +25,14 @@ const createRepository = Model => ({
    * @param {Object} options
    * @return {Promise<any>}
    */
-  paginate(query, options) {
+  async paginate(query, options) {
     try {
       const data = await Model.paginate(query, options)
       return data
     } catch (e) {
       throw mongoErrorsHandler(e, Model.modelName)
     }
-  }
+  },
 
   /**
    * Get entity by id

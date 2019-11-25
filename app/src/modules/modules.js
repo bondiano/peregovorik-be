@@ -4,6 +4,8 @@ const modules = [
   require('./core/passport'),
   require('./core/swagger'),
   require('./users'),
+  require('./events'),
+  require('./rooms'),
   require('./auth'),
 ]
 

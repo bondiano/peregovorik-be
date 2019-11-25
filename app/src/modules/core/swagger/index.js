@@ -13,7 +13,17 @@ exports.moduleFabric = app => {
           email: 'batbondik0@gmail.com',
         },
       },
-      servers: [],
+      openapi: '3.0.1',
+      basePath: '/',
+      components: {
+        securitySchemes: {
+          BearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+          },
+        },
+      },
     },
     apis: ['./**/*.controller.js', './**/*.model.js', './**/*.validators.js'],
   }

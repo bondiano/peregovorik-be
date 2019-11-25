@@ -6,20 +6,20 @@ const { Schema } = mongoose
 const { Types } = Schema
 /**
  * @swagger
- * definitions:
- *  Event:
- *    properties:
- *      title:
- *        type: string
- *      description:
- *        type: string
- *      images:
- *        type: [string]
- *      room:
- *        type: Room
- *      createdAt:
- *        type: string
- *
+ * components:
+ *   schemas:
+ *     Event:
+ *       properties:
+ *         title:
+ *           type: string
+ *         description:
+ *           type: string
+ *         images:
+ *           type: [string]
+ *         room:
+ *           $ref: '#/components/schemas/Room'
+ *         createdAt:
+ *           type: string
  */
 const eventSchema = new Schema(
   {
