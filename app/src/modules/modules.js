@@ -7,6 +7,7 @@ const modules = [
   require('./events'),
   require('./rooms'),
   require('./auth'),
+  require('./meetings'),
 ]
 
 module.exports = modules

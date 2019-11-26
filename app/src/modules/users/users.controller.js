@@ -22,7 +22,7 @@ const createController = registerControllers(module)
  *
  */
 createController('get', '/:id', async (ctx, next, { services }) => {
-  const { id } = ctx.request.params
+  const { id } = ctx.params
   const user = await services.getById(id)
 
   ctx.response.body = user

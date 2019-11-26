@@ -49,7 +49,15 @@ const roomSchema = new Schema(
       type: [String],
       default: [],
     },
-    events: [Types.ObjectId],
+    events: {
+      type: [
+        {
+          type: Types.ObjectId,
+          ref: 'Event',
+        },
+      ],
+      default: [],
+    },
   },
   {
     timestamps: {

@@ -48,7 +48,12 @@ const userSchema = new Schema(
     about: String,
     avatar: String,
     events: {
-      type: [Types.ObjectId],
+      type: [
+        {
+          type: Types.ObjectId,
+          ref: 'Event',
+        },
+      ],
       default: [],
     },
   },

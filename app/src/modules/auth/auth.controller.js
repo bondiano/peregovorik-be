@@ -31,7 +31,12 @@ const createController = registerControllers(module)
  *     responses:
  *       201:
  *         schema:
- *           $ref : '#/components/schemas/User'
+ *           type: object
+ *           properties:
+ *             user:
+ *               $ref : '#/components/schemas/User'
+ *             token:
+ *               type: string
  */
 createController(
   'post',
@@ -67,6 +72,13 @@ createController(
  *                 type: string
  *     responses:
  *       200:
+ *         schema:
+ *           type: object
+ *           properties:
+ *             user:
+ *               $ref : '#/components/schemas/User'
+ *             token:
+ *               type: string
  */
 createController(
   'post',

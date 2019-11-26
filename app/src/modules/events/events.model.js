@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const mongoosePaginate = require('mongoose-paginate-v2')
+const timeZone = require('mongoose-timezone')
 
 const { Schema } = mongoose
 
@@ -33,7 +34,13 @@ const eventSchema = new Schema(
       type: [String],
       default: [],
     },
-    room: Types.ObjectId,
+    from: Date,
+    to: Date,
+    room: {
+      type: Types.ObjectId,
+      ref: 'Room',
+      required: true,
+    },
   },
   {
     timestamps: {
@@ -44,6 +51,7 @@ const eventSchema = new Schema(
 )
 
 eventSchema.plugin(mongoosePaginate)
+eventSchema.plugin(timeZone, { paths: ['from', 'to'] })
 
 const Event = mongoose.model('Event', eventSchema)
 module.exports = Event
