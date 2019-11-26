@@ -1,8 +1,12 @@
 const createController = require('./meetings.controller')
 
-exports.moduleFabric = app => {
+exports.moduleFabric = (app, { events, rooms, users }) => {
+  const externalServices = {
+    eventsServices: events.services,
+  }
+
   return {
-    controller: createController(),
+    controller: createController({ services: externalServices }),
   }
 }
 

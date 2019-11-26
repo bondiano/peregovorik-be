@@ -43,7 +43,7 @@ createController(
   '/event',
   authHandler,
   validatorHandler(createEventSchema),
-  async (ctx, next) => {
+  async (ctx, next, { services }) => {
     console.log('ctx.body', ctx.body)
     ctx.response.body = ctx.body
   },
