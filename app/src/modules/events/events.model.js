@@ -17,6 +17,12 @@ const { Types } = Schema
  *           type: string
  *         images:
  *           type: [string]
+ *         to:
+ *           type: string
+ *           format: date-time
+ *         from:
+ *           type: string
+ *           format: date-time
  *         room:
  *           $ref: '#/components/schemas/Room'
  *         createdAt:
