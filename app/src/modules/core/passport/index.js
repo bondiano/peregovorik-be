@@ -15,7 +15,6 @@ exports.moduleFabric = (app, { users, config }) => {
     new JWTStrategy(optionsJWT, async (payload, done) => {
       try {
         const user = await users.services.getById(payload.id)
-        console.log('user', user)
         if (!user) {
           throw new UserNotFound()
         }
