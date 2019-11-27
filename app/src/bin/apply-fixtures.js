@@ -1,7 +1,8 @@
-const mongoose = require('../bootstrap/mongo')
 const path = require('path')
 const classicFs = require('fs')
 const fs = require('fs').promises
+
+const mongoose = require('../bootstrap/mongo')
 
 const { fixtures } = require('../fixtures')
 
