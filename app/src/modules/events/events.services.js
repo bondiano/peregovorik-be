@@ -1,6 +1,7 @@
 const { createRepository } = require('../../helpers/mongooseCRUD')
 
 const eventModel = require('./events.model')
+const { formatEvent } = require('./events.formatter')
 
 const eventRepository = createRepository(eventModel)
 
@@ -16,7 +17,7 @@ module.exports = () => {
   const createEvent = async data => {
     const event = await eventRepository.create(data)
 
-    return event
+    return formatEvent(event)
   }
 
   return {

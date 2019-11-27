@@ -17,6 +17,7 @@ const checkErrors = (scheme, target = 'request.body') => async (ctx, next) => {
       abortEarly: false,
       allowUnknown: false,
     })
+
     ctx.body = result
   } catch (e) {
     throw new ValidationError(e.details)

@@ -53,9 +53,9 @@ createController(
   authHandler,
   validatorHandler(createEventSchema),
   async (ctx, next, { services }) => {
-    const { user, body } = ctx
+    const { user } = ctx
 
-    const event = await services.createEvent({ ...body, user })
+    const event = await services.createEvent({ ...ctx.request.body, user })
 
     ctx.response.body = event
   },
