@@ -54,6 +54,7 @@ createController('get', '/:id', async (ctx, next, { services }) => {
  *           type: '#/components/schemas/User'
  *
  */
+// TODO: implement update current user data by ID
 createController(
   'patch',
   '/',

@@ -1,5 +1,6 @@
+// TODO: implement upload file to s3 bucket
 const upload = file => {
-  return file
+  return { url: '' }
 }
 
 module.exports = () => {

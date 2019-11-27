@@ -4,8 +4,10 @@ const { eventRepository } = require('./events.repository')
 const { formatCreateEvent } = require('./events.formatter')
 const { InvalidDate } = require('./exceptions')
 
+// TODO: implement this method
 const isValidDateDiff = (from, to) => true
 
+// TODO: implement this method
 const isTimeInRoomBusy = (room, from, to) => false
 
 module.exports = ({ roomsServices, usersServices }) => {
@@ -62,10 +64,13 @@ module.exports = ({ roomsServices, usersServices }) => {
     return event
   }
 
+  // TODO: implement this service
   const updateById = async ({ id, user, data }) => {}
 
+  // TODO: implement this service
   const applyToEvent = async (eventId, userId) => {}
 
+  // TODO: implement this service
   const denyFromEvent = async (eventId, userId) => {}
 
   return {

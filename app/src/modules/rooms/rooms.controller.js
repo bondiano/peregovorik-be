@@ -17,6 +17,7 @@ const createController = registerControllers(module)
  *             $ref: '#/components/schemas/Room'
  *
  */
+// TODO: implement filters and pagination for room list
 createController('get', '/', async (ctx, next, { services }) => {
   const rooms = await services.getAll()
 
@@ -38,6 +39,7 @@ createController('get', '/', async (ctx, next, { services }) => {
  *             $ref: '#/components/schemas/Room'
  *
  */
+// TODO: implement get free rooms endpoint by time rand and city
 createController('get', '/free', async (ctx, next, { services }) => {
   const rooms = await services.getAll()
 

@@ -67,7 +67,7 @@ createController(
  *   get:
  *     tags:
  *      - Events
- *     description: Get list of events (only room id is available here)
+ *     description: Get list of events
  *     responses:
  *       200:
  *         schema:
@@ -76,6 +76,8 @@ createController(
  *             $ref: '#/components/schemas/Event'
  *
  */
+// TODO: implement filters and pagination for events list
+// TODO: add event room info to response
 createController('get', '/', async (ctx, next, { services }) => {
   const events = await services.getAll()
 
@@ -154,6 +156,7 @@ createController('get', '/:id', async (ctx, next, { services }) => {
  *           $ref: '#/components/schemas/Event'
  *
  */
+// TODO: implement update event for creator
 createController(
   'patch',
   '/:id',
@@ -194,6 +197,7 @@ createController(
  *           $ref: '#/components/schemas/Event'
  *
  */
+// TODO: implement apply user to event
 createController(
   'post',
   '/:id/apply',
@@ -229,6 +233,7 @@ createController(
  *           $ref: '#/components/schemas/Event'
  *
  */
+// TODO: implement deny user from event
 createController(
   'post',
   '/:id/deny',
