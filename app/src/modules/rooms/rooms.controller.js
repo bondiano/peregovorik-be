@@ -8,7 +8,7 @@ const createController = registerControllers(module)
  *   get:
  *     tags:
  *       - Rooms
- *     description: Get list of rooms (only event ids are available here)
+ *     description: Get list of rooms
  *     responses:
  *       200:
  *         schema:
@@ -18,6 +18,27 @@ const createController = registerControllers(module)
  *
  */
 createController('get', '/', async (ctx, next, { services }) => {
+  const rooms = await services.getAll()
+
+  ctx.response.body = rooms
+})
+
+/**
+ * @swagger
+ * /rooms/free:
+ *   get:
+ *     tags:
+ *       - Rooms
+ *     description: Get list of free rooms for time
+ *     responses:
+ *       200:
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Room'
+ *
+ */
+createController('get', '/free', async (ctx, next, { services }) => {
   const rooms = await services.getAll()
 
   ctx.response.body = rooms
