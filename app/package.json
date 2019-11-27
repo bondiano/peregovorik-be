@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node ./src/bin/api.js",
     "dev": "nodemon --watch src ./src/bin/api.js",
+    "fixtures": "node ./src/bin/apply-fixtures.js --no-warnings",
     "test": "ava --verbose --config tests.config.js --color"
   },
   "devDependencies": {

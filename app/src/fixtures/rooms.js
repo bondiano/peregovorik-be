@@ -11,4 +11,13 @@ const rooms = [
     city: 'Питер',
     equipment: ['камера'],
   },
+  {
+    roomNumber: 666,
+    description: 'lolkek',
+    city: 'Питер',
+    equipment: ['камера', 'мотор'],
+  },
 ]
+
+exports.model = 'Room'
+exports.data = rooms
