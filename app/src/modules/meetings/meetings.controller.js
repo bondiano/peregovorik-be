@@ -27,9 +27,18 @@ const createController = registerControllers(module)
  *                 type: string
  *               images:
  *                 type: array
- *                 items: string
+ *                 items:
+ *                   type: string
+ *               from:
+ *                 type: string
+ *                 format: date-time
+ *               to:
+ *                 type: string
+ *                 format: date-time
  *               room:
  *                 type: string
+ *                 description: Room id
+ *                 example: abcd56789012345678901234
  *     security:
  *       - BearerAuth: []
  *     responses:
@@ -44,7 +53,10 @@ createController(
   authHandler,
   validatorHandler(createEventSchema),
   async (ctx, next, { services }) => {
-    console.log('ctx.body', ctx.body)
-    ctx.response.body = ctx.body
+    const { user, body } = ctx
+
+    const event = await services.createEvent({ ...body, user })
+
+    ctx.response.body = event
   },
 )

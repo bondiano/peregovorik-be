@@ -1,7 +1,7 @@
 const Joi = require('joi')
 
 exports.createEventSchema = Joi.object().keys({
-  title: Joi.string().required(),
+  title: Joi.string(),
   description: Joi.string(),
   images: Joi.array().items(Joi.string()),
   from: Joi.date()
@@ -10,5 +10,5 @@ exports.createEventSchema = Joi.object().keys({
   to: Joi.date()
     .greater(Joi.ref('from'))
     .required(),
-  room: Joi.string().required(),
+  room: Joi.objectId().required(),
 })

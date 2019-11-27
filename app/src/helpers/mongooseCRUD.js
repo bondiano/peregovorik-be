@@ -90,8 +90,8 @@ const createRepository = Model => ({
    */
   async updateById(id, data) {
     try {
-      const data = await Model.findByIdAndUpdate(id, data, { new: true })
-      return data
+      const modelData = await Model.findByIdAndUpdate(id, data, { new: true })
+      return modelData
     } catch (e) {
       throw mongoErrorsHandler(e, Model.modelName)
     }

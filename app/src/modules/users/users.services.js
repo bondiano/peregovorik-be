@@ -6,13 +6,19 @@ const { formatUser } = require('./users.formatter')
 
 const userRepository = createRepository(userModel)
 
-module.exports = ({ eventsServices }) => {
+module.exports = () => {
   const createUser = async ({ username, email, password }) => {
     const user = await userRepository.create({
       username,
       email,
       password,
     })
+
+    return formatUser(user)
+  }
+
+  const updateUserById = async (id, data) => {
+    const user = await userRepository.updateById(id, data)
 
     return formatUser(user)
   }
@@ -41,6 +47,7 @@ module.exports = ({ eventsServices }) => {
 
   return {
     createUser,
+    updateUserById,
     getById,
     findOne,
     verifyPassword,

@@ -1,0 +1,1 @@
+const { fixtures } = require('../fixtures')

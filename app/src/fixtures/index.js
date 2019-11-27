@@ -1,0 +1,1 @@
+exports.fixtures = [require('./rooms')]

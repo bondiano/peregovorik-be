@@ -13,8 +13,15 @@ module.exports = () => {
     return event
   }
 
+  const createEvent = async data => {
+    const event = await eventRepository.create(data)
+
+    return event
+  }
+
   return {
     getAll,
     getById,
+    createEvent,
   }
 }

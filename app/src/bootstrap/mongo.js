@@ -5,6 +5,7 @@ mongoose.connect(`mongodb://${MONGO_DB_URL}:${MONGO_DB_PORT}`, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 })
 
 const db = mongoose.connection

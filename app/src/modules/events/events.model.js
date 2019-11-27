@@ -25,6 +25,8 @@ const { Types } = Schema
  *           format: date-time
  *         room:
  *           $ref: '#/components/schemas/Room'
+ *         createdBy:
+ *           $ref: '#/components/schemas/User'
  *         createdAt:
  *           type: string
  */
@@ -46,6 +48,20 @@ const eventSchema = new Schema(
       type: Types.ObjectId,
       ref: 'Room',
       required: true,
+    },
+    createdBy: {
+      type: Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    appliedUsers: {
+      type: [
+        {
+          type: Types.ObjectId,
+          ref: 'User',
+        },
+      ],
+      default: [],
     },
   },
   {

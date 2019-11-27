@@ -3,11 +3,11 @@ const { pick } = require('lodash')
 exports.formatUser = user =>
   pick(user, [
     '_id',
-    'username',
-    'email',
+    'title',
+    'description',
+    'images',
+    'from',
+    'to',
     'createdAt',
-    'lastName',
-    'firstName',
-    'avatar',
-    'about',
+    'updatedAt',
   ])
