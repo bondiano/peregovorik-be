@@ -43,8 +43,9 @@ createController('get', '/', async (ctx, next, { services }) => {
  *
  */
 createController('get', '/:id', async (ctx, next, { services }) => {
-  console.log('ctx.req', ctx.req)
-  const rooms = await services.getAll()
+  const { id } = ctx.params
+
+  const rooms = await services.getRoomById(id)
 
   ctx.response.body = rooms
 })

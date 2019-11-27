@@ -1,10 +1,6 @@
-const { createRepository } = require('../../helpers/mongooseCRUD')
-
-const userModel = require('./users.model')
+const { userRepository } = require('./users.repository')
 
 const { formatUser } = require('./users.formatter')
-
-const userRepository = createRepository(userModel)
 
 module.exports = () => {
   const createUser = async ({ username, email, password }) => {
@@ -24,7 +20,7 @@ module.exports = () => {
   }
 
   const getById = async id => {
-    const user = await userRepository.getById(id)
+    const user = await userRepository.getUserWithEvent(id)
 
     return formatUser(user)
   }

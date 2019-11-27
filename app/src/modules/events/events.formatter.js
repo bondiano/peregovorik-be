@@ -1,6 +1,6 @@
 const { pick } = require('lodash')
 
-exports.formatEvent = user =>
+exports.formatCreateEvent = user =>
   pick(user, [
     '_id',
     'title',

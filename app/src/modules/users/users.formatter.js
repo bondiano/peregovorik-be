@@ -10,4 +10,5 @@ exports.formatUser = user =>
     'firstName',
     'avatar',
     'about',
+    'events',
   ])

@@ -3,11 +3,11 @@ const modules = [
   require('./core/jwt'),
   require('./core/passport'),
   require('./core/swagger'),
+  require('./core/media'),
   require('./users'),
   require('./events'),
   require('./rooms'),
   require('./auth'),
-  require('./meetings'),
 ]
 
 module.exports = modules
