@@ -4,6 +4,11 @@ const { ui } = require('swagger2-koa')
 exports.moduleFabric = (app, { config }) => {
   const options = {
     definition: {
+      servers: [
+        {
+          url: config.BASE_URL,
+        },
+      ],
       info: {
         title: 'Peregovorki api',
         version: '1.0.0',
@@ -14,7 +19,6 @@ exports.moduleFabric = (app, { config }) => {
         },
       },
       openapi: '3.0.1',
-      basePath: config.BASE_PATH,
       components: {
         securitySchemes: {
           BearerAuth: {
