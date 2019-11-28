@@ -3,6 +3,8 @@ stages:
 
 deploy_to_prod:
   stage: deploy
+  tags:
+    - node
   script:
     - cd /home/admin2/preregovorki-inernship-be
     - git fetch origin $CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME -u
@@ -10,6 +12,7 @@ deploy_to_prod:
     - git pull origin $CI_COMMIT_REF_NAME
     - docker-compose stop
     - make prod
+  when: manual
   only:
     - master
 
