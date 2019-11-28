@@ -1,7 +1,7 @@
 const swaggerJSDoc = require('swagger-jsdoc')
 const { ui } = require('swagger2-koa')
 
-exports.moduleFabric = app => {
+exports.moduleFabric = (app, { config }) => {
   const options = {
     definition: {
       info: {
@@ -14,7 +14,7 @@ exports.moduleFabric = app => {
         },
       },
       openapi: '3.0.1',
-      basePath: '/',
+      basePath: config.BASE_PATH,
       components: {
         securitySchemes: {
           BearerAuth: {
@@ -36,4 +36,5 @@ exports.moduleFabric = app => {
 exports.moduleMeta = {
   name: 'swagger',
   baseRoute: '/doc',
+  dependsOn: ['config'],
 }
