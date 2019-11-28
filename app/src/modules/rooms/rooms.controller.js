@@ -52,7 +52,7 @@ createController('get', '/free', async (ctx, next, { services }) => {
  *   get:
  *     tags:
  *       - Rooms
- *     description: Room by id (only event ids are available here)
+ *     description: Room by id
  *     parameters:
  *       -
  *         name: id

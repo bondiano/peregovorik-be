@@ -1,0 +1,17 @@
+stages:
+  - deploy
+
+deploy_to_prod:
+  stage: deploy
+  script:
+    - cd /home/admin2/preregovorki-inernship-be
+    - git fetch origin $CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME -u
+    - git checkout $CI_COMMIT_REF_NAME -f
+    - git pull origin $CI_COMMIT_REF_NAME
+    - docker-compose stop
+    - make prod
+  only:
+    - master
+
+variables:
+  GIT_SSL_NO_VERIFY: "true"
