@@ -7,7 +7,7 @@ deploy_to_prod:
     - node
   script:
     - cd /home/admin2/preregovorki-inernship-be
-    - git pull origin $CI_COMMIT_REF_NAME
+    - git pull
     - make down
     - make prod
   when: manual
