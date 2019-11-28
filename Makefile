@@ -5,7 +5,7 @@ down:
 start:
 	docker-compose up --build
 prod:
-	docker-compose up --build -d
+	docker-compose -f ./docker-compose.prod.yaml up --build -d
 debug:
 	DEBUG_CMD=start:debug docker-compose up
 build:
