@@ -10,7 +10,7 @@ deploy_to_prod:
     - git fetch origin $CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME -u
     - git checkout $CI_COMMIT_REF_NAME -f
     - git pull origin $CI_COMMIT_REF_NAME
-    - docker-compose stop
+    - make down
     - make prod
   when: manual
   only:

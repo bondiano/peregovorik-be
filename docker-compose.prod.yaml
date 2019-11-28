@@ -11,8 +11,6 @@ services:
       - "start"
     networks:
       - appnet
-    volumes:
-      - ./app:/api
     env_file:
       - .env
   mongo:
