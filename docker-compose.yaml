@@ -7,6 +7,7 @@ services:
     restart: on-failure
     ports:
       - "${PORT}:${PORT}"
+      - 9250:9250
     command:
       - "dev"
     networks:

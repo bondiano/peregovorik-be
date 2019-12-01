@@ -11,4 +11,6 @@ RUN yarn install --no-cache --ignore-optional --frozen-lockfile --network-timeou
 COPY ./app .
 
 EXPOSE 1488
+EXPOSE 9229
+
 ENTRYPOINT ["yarn"]
