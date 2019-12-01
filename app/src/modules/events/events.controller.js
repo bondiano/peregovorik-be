@@ -77,7 +77,6 @@ createController(
  *
  */
 // TODO: implement filters and pagination for events list
-// TODO: add event room info to response
 createController('get', '/', async (ctx, next, { services }) => {
   const events = await services.getAll()
 

@@ -4,10 +4,13 @@ const eventModel = require('./events.model')
 
 const eventRepository = createRepository(eventModel)
 
-eventRepository.getAllWithEvents = async function getAllWithEvents(conditions) {
+eventRepository.getAllEventsWithData = async function getAllEventsWithData(
+  conditions,
+) {
   const events = await eventModel
     .find(conditions)
-    .populate('events')
+    .populate('room')
+    .populate('appliedUsers')
     .exec()
 
   return events

@@ -56,7 +56,7 @@ module.exports = ({ roomsServices, usersServices }) => {
     }
   }
 
-  const getAll = conditions => eventRepository.getAll(conditions)
+  const getAll = conditions => eventRepository.getAllEventsWithData(conditions)
 
   const getById = async id => {
     const event = await eventRepository.getEventWithDataById(id)
