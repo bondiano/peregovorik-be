@@ -27,6 +27,7 @@
     "aws-sdk": "^2.580.0",
     "cors": "^2.8.5",
     "date-fns": "^2.8.1",
+    "date-fns-tz": "^1.0.8",
     "dependency-graph": "^0.8.0",
     "dotenv": "^8.2.0",
     "joi": "^14.3.1",

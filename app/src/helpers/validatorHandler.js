@@ -18,12 +18,14 @@ const checkErrors = (scheme, target = 'request.body') => async (ctx, next) => {
       allowUnknown: false,
     })
 
-    ctx.body = result
+    if (target === 'request.body') {
+      ctx.body = result
+    }
   } catch (e) {
     throw new ValidationError(e.details)
-  } finally {
-    await next()
   }
+
+  await next()
 }
 
 /**

@@ -1,4 +1,7 @@
 const { registerControllers } = require('@/helpers/registerControllers')
+const { validatorHandler } = require('@/helpers/validatorHandler')
+
+const roomValidator = require('./room.validators')
 
 const createController = registerControllers(module)
 
@@ -12,6 +15,7 @@ const createController = registerControllers(module)
  *     parameters:
  *       - in: query
  *         name: city
+ *         required: true
  *         schema:
  *           type: string
  *         description: Filter by city name
@@ -38,18 +42,24 @@ const createController = registerControllers(module)
  *             $ref: '#/components/schemas/Room'
  *
  */
-createController('get', '/', async (ctx, next, { services }) => {
-  const { limit, offset, city, date } = ctx.query
-  const { rooms, ...additional } = await services.getAll({
-    limit,
-    offset,
-    city,
-    date,
-  })
+createController(
+  'get',
+  '/',
+  validatorHandler(roomValidator.getRoomsSchema, 'query'),
+  async (ctx, next, { services }) => {
+    const { limit, offset, city, date } = ctx.query
 
-  ctx.additional = additional
-  ctx.response.body = rooms
-})
+    const { rooms, ...additional } = await services.getAll({
+      limit,
+      offset,
+      city,
+      date,
+    })
+
+    ctx.additional = additional
+    ctx.response.body = rooms
+  },
+)
 
 /**
  * @swagger
@@ -58,6 +68,27 @@ createController('get', '/', async (ctx, next, { services }) => {
  *     tags:
  *       - Rooms
  *     description: Get list of free rooms for time
+ *     parameters:
+ *       - in: query
+ *         name: city
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Filter by city name
+ *       - in: query
+ *         name: from
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *         description: User is searching from date
+ *       - in: query
+ *         name: to
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *         description: User is searching to date
  *     responses:
  *       200:
  *         schema:
@@ -66,12 +97,17 @@ createController('get', '/', async (ctx, next, { services }) => {
  *             $ref: '#/components/schemas/Room'
  *
  */
-// TODO: implement get free rooms endpoint by time range and city
-createController('get', '/free', async (ctx, next, { services }) => {
-  const rooms = await services.getAll()
+createController(
+  'get',
+  '/free',
+  validatorHandler(roomValidator.getFreeRoomsSchema, 'query'),
+  async (ctx, next, { services }) => {
+    const { city, from, to } = ctx.query
+    const rooms = await services.getAllFreeRooms({ city, from, to })
 
-  ctx.response.body = rooms
-})
+    ctx.response.body = rooms
+  },
+)
 
 /**
  * @swagger

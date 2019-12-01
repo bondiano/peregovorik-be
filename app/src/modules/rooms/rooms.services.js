@@ -1,23 +1,18 @@
 const { roomRepository } = require('./room.repository')
 
 module.exports = () => {
-  const getAll = conditions => roomRepository.getAllWithEvents(conditions)
+  const getAll = roomRepository.getAllWithEvents
 
-  const updateRoomById = async (id, data) => {
-    const room = await roomRepository.updateById(id, data)
+  const getAllFreeRooms = roomRepository.getAllFreeRooms
 
-    return room
-  }
+  const updateRoomById = roomRepository.updateById
 
-  const getRoomById = async id => {
-    const room = await roomRepository.getRoomWithEvent(id)
-
-    return room
-  }
+  const getRoomById = roomRepository.getRoomWithEvent
 
   return {
     getAll,
     updateRoomById,
     getRoomById,
+    getAllFreeRooms,
   }
 }
