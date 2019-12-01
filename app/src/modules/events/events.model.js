@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const mongoosePaginate = require('mongoose-paginate-v2')
 const timeZone = require('mongoose-timezone')
 
 const { Schema } = mongoose
@@ -72,7 +71,6 @@ const eventSchema = new Schema(
   },
 )
 
-eventSchema.plugin(mongoosePaginate)
 eventSchema.plugin(timeZone, { paths: ['from', 'to'] })
 
 const Event = mongoose.model('Event', eventSchema)

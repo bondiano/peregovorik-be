@@ -1,6 +1,7 @@
-const successResponse = data => ({
+const successResponse = (data, additional) => ({
   success: true,
   data,
+  additional,
 })
 
 const errorResponse = error => ({
@@ -15,14 +16,13 @@ const errorResponse = error => ({
 const errorHandler = async (ctx, next) => {
   try {
     await next()
-    const needWrap =
-      ctx.response.body &&
-      typeof ctx.response.body === 'object' &&
-      !ctx.response.status
+    const needWrap = ctx.response.body && typeof ctx.response.body === 'object'
 
     if (needWrap) {
       ctx.response.status = 200
-      ctx.response.body = successResponse(ctx.response.body)
+      const { additional } = ctx
+      delete ctx.additional
+      ctx.response.body = successResponse(ctx.response.body, additional)
     }
   } catch (e) {
     console.error('Handled error', e)

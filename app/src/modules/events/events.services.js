@@ -4,7 +4,7 @@ const { eventRepository } = require('./events.repository')
 const { formatCreateEvent } = require('./events.formatter')
 const { InvalidDate } = require('./exceptions')
 
-// TODO: implement this method
+// TODO: implement this method. It should be less then 6 hours and only on one day
 const isValidDateDiff = (from, to) => true
 
 // TODO: implement this method

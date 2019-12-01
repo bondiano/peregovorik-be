@@ -33,9 +33,8 @@ app.use(
 )
 
 app.use(passport.initialize())
-app.use(errorHandler)
 
-registerModules(app)
+registerModules(app, [errorHandler])
 
 app.listen(config.PORT, () =>
   console.log(`PEREGOVORKI API started on ${config.PORT}`),

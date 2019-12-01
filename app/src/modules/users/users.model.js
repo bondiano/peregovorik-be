@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const mongoosePaginate = require('mongoose-paginate-v2')
 const argon2 = require('argon2')
 
 const { Schema } = mongoose
@@ -64,8 +63,6 @@ const userSchema = new Schema(
     },
   },
 )
-
-userSchema.plugin(mongoosePaginate)
 
 userSchema.pre('save', async function(next) {
   if (this.isModified('password') || this.isNew) {

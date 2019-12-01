@@ -9,6 +9,27 @@ const createController = registerControllers(module)
  *     tags:
  *       - Rooms
  *     description: Get list of rooms
+ *     parameters:
+ *       - in: query
+ *         name: city
+ *         schema:
+ *           type: string
+ *         description: Filter by city name
+ *       - in: query
+ *         name: date
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *         description: Filter by date of events (only events for the date will be sent)
+ *       - in: query
+ *         name: offset
+ *         schema:
+ *           type: integer
+ *         description: The number of items to skip before starting to collect the result set
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
  *     responses:
  *       200:
  *         schema:
@@ -17,10 +38,16 @@ const createController = registerControllers(module)
  *             $ref: '#/components/schemas/Room'
  *
  */
-// TODO: implement filters and pagination for room list
 createController('get', '/', async (ctx, next, { services }) => {
-  const rooms = await services.getAll()
+  const { limit, offset, city, date } = ctx.query
+  const { rooms, ...additional } = await services.getAll({
+    limit,
+    offset,
+    city,
+    date,
+  })
 
+  ctx.additional = additional
   ctx.response.body = rooms
 })
 
@@ -39,7 +66,7 @@ createController('get', '/', async (ctx, next, { services }) => {
  *             $ref: '#/components/schemas/Room'
  *
  */
-// TODO: implement get free rooms endpoint by time rand and city
+// TODO: implement get free rooms endpoint by time range and city
 createController('get', '/free', async (ctx, next, { services }) => {
   const rooms = await services.getAll()
 
