@@ -41,11 +41,6 @@ createController('get', '/:id', async (ctx, next, { services }) => {
  *      - Users
  *     description: Update current user profile
  *     parameters:
- *       -
- *         name: id
- *         in: path
- *         description: User id
- *         required: true
  *     security:
  *       - BearerAuth: []
  *     responses:
@@ -54,15 +49,14 @@ createController('get', '/:id', async (ctx, next, { services }) => {
  *           type: '#/components/schemas/User'
  *
  */
-// TODO: implement update current user data by ID
+// TODO: implement update current user data
 createController(
   'patch',
   '/',
   authHandler,
   validatorHandler(updateUserSchema),
   async (ctx, next, { services }) => {
-    const { id } = ctx.params
-    const user = await services.getById(id)
+    const user = await services.getById()
 
     ctx.response.body = user
   },

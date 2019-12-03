@@ -30,6 +30,7 @@ const isTimeInRoomBusy = (events, from, to) => {
   )
 }
 
+// TODO: make all update requests in transaction
 module.exports = ({ roomsServices, usersServices }) => {
   const createEvent = async ({
     title,
@@ -93,11 +94,47 @@ module.exports = ({ roomsServices, usersServices }) => {
   // TODO: implement this service
   const updateById = async ({ id, user, data }) => {}
 
-  // TODO: implement this service
-  const applyToEvent = async (eventId, userId) => {}
+  const applyToEvent = async (eventId, userId) => {
+    const user = await usersServices.findOne(userId)
 
-  // TODO: implement this service
-  const denyFromEvent = async (eventId, userId) => {}
+    const isUserHasEvent = user.events.some(({ id }) => id === eventId)
+
+    if (isUserHasEvent) {
+      // TODO: make special exception
+      throw new Error('User already applied')
+    }
+
+    await usersServices.updateUserById(userId, {
+      $push: { events: eventId },
+    })
+
+    const event = await eventRepository.updateById(eventId, {
+      $push: { appliedUsers: userId },
+    })
+
+    return event
+  }
+
+  const denyFromEvent = async (eventId, userId) => {
+    const user = await usersServices.findOne(userId)
+
+    const isUserHasEvent = user.events.some(({ id }) => id === eventId)
+
+    if (!isUserHasEvent) {
+      // TODO: make special exception
+      throw new Error('User already not applied to event with id: ' + eventId)
+    }
+
+    await usersServices.updateUserById(userId, {
+      $pull: { events: eventId },
+    })
+
+    const event = await eventRepository.updateById(eventId, {
+      $pull: { appliedUsers: userId },
+    })
+
+    return event
+  }
 
   return {
     getAll,

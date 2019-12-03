@@ -76,7 +76,6 @@ createController(
  *             $ref: '#/components/schemas/Event'
  *
  */
-// TODO: implement filters and pagination for events list
 createController('get', '/', async (ctx, next, { services }) => {
   const events = await services.getAll()
 
@@ -155,7 +154,6 @@ createController('get', '/:id', async (ctx, next, { services }) => {
  *           $ref: '#/components/schemas/Event'
  *
  */
-// TODO: implement update event for creator
 createController(
   'patch',
   '/:id',
@@ -196,7 +194,6 @@ createController(
  *           $ref: '#/components/schemas/Event'
  *
  */
-// TODO: implement apply user to event
 createController(
   'post',
   '/:id/apply',
