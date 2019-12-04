@@ -1,4 +1,4 @@
-const { createRepository } = require('../../helpers/mongooseCRUD')
+const { createRepository } = require('@/helpers/mongooseCRUD')
 
 const userModel = require('./users.model')
 

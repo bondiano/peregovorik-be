@@ -41,11 +41,14 @@ module.exports = () => {
     return user.verifyPassword(password)
   }
 
+  const update = userRepository.update
+
   return {
     createUser,
     updateUserById,
     getById,
     findOne,
+    update,
     verifyPassword,
   }
 }

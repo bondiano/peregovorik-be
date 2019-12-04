@@ -229,7 +229,6 @@ createController(
  *           $ref: '#/components/schemas/Event'
  *
  */
-// TODO: implement deny user from event
 createController(
   'post',
   '/:id/deny',
@@ -239,6 +238,41 @@ createController(
     const { id } = ctx.params
 
     const event = await services.denyFromEvent(id, user._id)
+
+    ctx.response.body = event
+  },
+)
+
+/**
+ * @swagger
+ * /events/{id}:
+ *   delete:
+ *     tags:
+ *      - Events
+ *     description: Apply to event
+ *     parameters:
+ *       -
+ *         name: id
+ *         in: path
+ *         description: Event id
+ *         required: true
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         schema:
+ *           $ref: '#/components/schemas/Event'
+ *
+ */
+// TODO: Implement delete event method
+createController(
+  'post',
+  '/:id',
+  authHandler,
+  async (ctx, next, { services }) => {
+    const { user } = ctx
+
+    const event = await services.deleteEvent(id, user._id)
 
     ctx.response.body = event
   },

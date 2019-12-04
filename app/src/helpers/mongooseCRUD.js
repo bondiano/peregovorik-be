@@ -19,22 +19,6 @@ const createRepository = Model => ({
   },
 
   /**
-   * Paginate with mongoose-paginate(-v2) interface
-   *
-   * @param {Object} query
-   * @param {Object} options
-   * @return {Promise<any>}
-   */
-  async paginate(query, options) {
-    try {
-      const data = await Model.paginate(query, options)
-      return data
-    } catch (e) {
-      throw mongoErrorsHandler(e, Model.modelName)
-    }
-  },
-
-  /**
    * Get entity by id
    *
    * @param {string} id - mongo id
@@ -91,6 +75,22 @@ const createRepository = Model => ({
   async updateById(id, data) {
     try {
       const modelData = await Model.findByIdAndUpdate(id, data, { new: true })
+      return modelData
+    } catch (e) {
+      throw mongoErrorsHandler(e, Model.modelName)
+    }
+  },
+
+  /**
+   * Find several documents and update each
+   *
+   * @param conditions
+   * @param data
+   * @return {Promise<any>}
+   */
+  async update(conditions = {}, data) {
+    try {
+      const modelData = await Model.update(conditions, data)
       return modelData
     } catch (e) {
       throw mongoErrorsHandler(e, Model.modelName)

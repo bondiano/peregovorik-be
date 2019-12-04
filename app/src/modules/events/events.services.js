@@ -7,7 +7,7 @@ const {
 
 const { eventRepository } = require('./events.repository')
 const { formatCreateEvent } = require('./events.formatter')
-const { InvalidDate, NoRoom } = require('./exceptions')
+const { InvalidDate, NoRoom, NotEventCreator } = require('./exceptions')
 
 const isValidDateDiff = (from, to) => {
   const fromISO = parseISO(from)
@@ -30,17 +30,9 @@ const isTimeInRoomBusy = (events, from, to) => {
   )
 }
 
-// TODO: make all update requests in transaction
+// TODO: make all update and delete requests in transaction and move them to repository
 module.exports = ({ roomsServices, usersServices }) => {
-  const createEvent = async ({
-    title,
-    description,
-    images,
-    from,
-    to,
-    room,
-    user,
-  }) => {
+  const validateEventInfo = async ({ from, to, room }) => {
     if (!isValidDateDiff(from, to)) {
       throw new InvalidDate(
         'It should be the same day and difference between from and to must be less then 6 hours',
@@ -56,6 +48,18 @@ module.exports = ({ roomsServices, usersServices }) => {
     if (isTimeInRoomBusy(roomInfo.events, from, to)) {
       throw new InvalidDate('This time in the room is busy')
     }
+  }
+
+  const createEvent = async ({
+    title,
+    description,
+    images,
+    from,
+    to,
+    room,
+    user,
+  }) => {
+    await validateEventInfo({ from, to, room })
 
     const event = await eventRepository.create({
       title,
@@ -91,8 +95,20 @@ module.exports = ({ roomsServices, usersServices }) => {
     return event
   }
 
-  // TODO: implement this service
-  const updateById = async ({ id, user, data }) => {}
+  const updateById = async ({ id, user, data }) => {
+    const event = await eventRepository.getById(id)
+
+    const isCurrentUserCreator = event.createdBy.equals(user)
+    if (!isCurrentUserCreator) {
+      throw new NotEventCreator()
+    }
+
+    await validateEventInfo({ ...event, ...data })
+
+    const updatedEvent = await eventRepository.updateById(id, data)
+
+    return updatedEvent
+  }
 
   const applyToEvent = async (eventId, userId) => {
     const user = await usersServices.findOne(userId)
@@ -136,6 +152,24 @@ module.exports = ({ roomsServices, usersServices }) => {
     return event
   }
 
+  const deleteEvent = async (eventId, userId) => {
+    const event = await eventRepository.getById(eventId)
+
+    const isCurrentUserCreator = event.createdBy.equals(userId)
+    if (!isCurrentUserCreator) {
+      throw new NotEventCreator()
+    }
+
+    await eventRepository.deleteById(eventId)
+
+    await userService.update(
+      { events: { $eq: eventId } },
+      { events: { $pull: eventId } },
+    )
+
+    return 'Successfully deleted'
+  }
+
   return {
     getAll,
     getById,
@@ -143,5 +177,6 @@ module.exports = ({ roomsServices, usersServices }) => {
     updateById,
     applyToEvent,
     denyFromEvent,
+    deleteEvent,
   }
 }
