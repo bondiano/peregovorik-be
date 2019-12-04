@@ -264,7 +264,6 @@ createController(
  *           $ref: '#/components/schemas/Event'
  *
  */
-// TODO: Implement delete event method
 createController(
   'post',
   '/:id',
