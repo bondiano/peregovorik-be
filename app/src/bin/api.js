@@ -2,7 +2,7 @@ const Koa = require('koa')
 const Router = require('koa-router')
 const logger = require('koa-logger')
 const cors = require('@koa/cors')
-const bodyParser = require('koa-bodyparser')
+const bodyParser = require('koa-body')
 const helmet = require('koa-helmet')
 const passport = require('koa-passport')
 
@@ -25,7 +25,8 @@ app.use(cors())
 
 app.use(
   bodyParser({
-    enableTypes: ['json'],
+    json: true,
+    multipart: true,
     onerror: (err, ctx) => {
       ctx.throw('Body parse error', err, 422)
     },
