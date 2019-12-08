@@ -40,7 +40,29 @@ createController('get', '/:id', async (ctx, next, { services }) => {
  *     tags:
  *      - Users
  *     description: Update current user profile
- *     parameters:
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               oldPassword:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               avatar:
+ *                 type: string
+ *               about:
+ *                 type: string
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
  *     security:
  *       - BearerAuth: []
  *     responses:
@@ -49,14 +71,13 @@ createController('get', '/:id', async (ctx, next, { services }) => {
  *           type: '#/components/schemas/User'
  *
  */
-// TODO: implement update current user data
 createController(
   'patch',
   '/',
   authHandler,
   validatorHandler(updateUserSchema),
   async (ctx, next, { services }) => {
-    const user = await services.getById()
+    const user = await services.updateCurrentUser(ctx.user, ctx.body)
 
     ctx.response.body = user
   },

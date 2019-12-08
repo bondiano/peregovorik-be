@@ -85,22 +85,18 @@ createController(
   '/login',
   validatorHandler(loginSchema),
   async (ctx, next, { jwtServices }) => {
-    await passport.authenticate(
-      'local',
-      { session: false },
-      (err, user, info) => {
-        if (err) {
-          throw err
-        }
+    await passport.authenticate('local', { session: false }, (err, user) => {
+      if (err) {
+        throw err
+      }
 
-        const payload = {
-          id: user._id,
-        }
+      const payload = {
+        id: user._id,
+      }
 
-        const token = jwtServices.sign(payload)
-        ctx.response.body = { user, token }
-      },
-    )(ctx, next)
+      const token = jwtServices.sign(payload)
+      ctx.response.body = { user, token }
+    })(ctx, next)
   },
 )
 

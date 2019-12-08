@@ -43,6 +43,23 @@ module.exports = () => {
 
   const update = userRepository.update
 
+  const updateCurrentUser = async (userData, newData) => {
+    const { password, oldPassword, ...data } = newData
+
+    if (password) {
+      const user = await userRepository.getById(userData._id)
+      const isValidOldPassword = user.verifyPassword(oldPassword)
+
+      if (!isValidOldPassword) {
+        throw new Error('Old password is not valid')
+      }
+
+      data.password = password
+    }
+
+    return await updateUserById(user._id, data)
+  }
+
   return {
     createUser,
     updateUserById,
@@ -50,5 +67,6 @@ module.exports = () => {
     findOne,
     update,
     verifyPassword,
+    updateCurrentUser,
   }
 }
