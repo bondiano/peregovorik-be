@@ -54,16 +54,18 @@ roomRepository.getAllFreeRooms = async function getAllFreeRoom({
 
   const userTimeInterval = { start: parseISO(from), end: parseISO(to) }
   const freeRooms = rooms.filter(room =>
-    room.events.some(
-      event =>
-        !areIntervalsOverlapping(
-          {
-            start: parseISO(new Date(event.from).toISOString()),
-            end: parseISO(new Date(event.to).toISOString()),
-          },
-          userTimeInterval,
-        ),
-    ),
+    room.events.length
+      ? room.events.some(
+          event =>
+            !areIntervalsOverlapping(
+              {
+                start: parseISO(new Date(event.from).toISOString()),
+                end: parseISO(new Date(event.to).toISOString()),
+              },
+              userTimeInterval,
+            ),
+        )
+      : true,
   )
 
   return freeRooms
