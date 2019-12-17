@@ -10,7 +10,8 @@
     "start": "node ./src/bin/api.js",
     "dev": "nodemon --inspect=0.0.0.0:9250 --watch src ./src/bin/api.js",
     "fixtures": "node ./src/bin/apply-fixtures.js --no-warnings",
-    "test": "ava --verbose --config tests.config.js --color"
+    "test": "ava --verbose --config tests.config.js --color",
+    "lint": "eslint ./src"
   },
   "devDependencies": {
     "ava": "^2.4.0",
