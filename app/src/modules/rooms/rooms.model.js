@@ -48,6 +48,10 @@ const roomSchema = new Schema(
       type: [String],
       default: [],
     },
+    capacity: {
+      type: Number,
+      default: 0,
+    },
     events: {
       type: [
         {

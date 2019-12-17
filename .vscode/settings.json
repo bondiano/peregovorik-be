@@ -25,5 +25,8 @@
   "path-intellisense.extensionOnImport": true,
   "path-intellisense.mappings": {
     "@/": "${folder}/app/src/"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
   }
 }
