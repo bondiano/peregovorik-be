@@ -265,7 +265,7 @@ createController(
  *
  */
 createController(
-  'post',
+  'delete',
   '/:id',
   authHandler,
   async (ctx, next, { services }) => {
