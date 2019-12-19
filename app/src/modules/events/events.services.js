@@ -149,23 +149,31 @@ module.exports = ({ roomsServices, usersServices }) => {
       $pull: { appliedUsers: userId },
     })
 
+    if (!event.appliedUsers.length) {
+      await eventRepository.deleteById(event._id)
+    }
+
     return event
   }
 
   const deleteEvent = async (eventId, userId) => {
     const event = await eventRepository.getById(eventId)
 
+    if (!event) {
+      throw new Error('No such event')
+    }
+
     const isCurrentUserCreator = event.createdBy.equals(userId)
     if (!isCurrentUserCreator) {
       throw new NotEventCreator()
     }
 
-    await eventRepository.deleteById(eventId)
-
-    await userService.update(
-      { events: { $eq: eventId } },
-      { events: { $pull: eventId } },
+    await usersServices.update(
+      { events: { $eq: event._id } },
+      { $pull: { events: { _id: event._id } } },
     )
+
+    await eventRepository.deleteById(event._id)
 
     return 'Successfully deleted'
   }

@@ -270,6 +270,7 @@ createController(
   authHandler,
   async (ctx, next, { services }) => {
     const { user } = ctx
+    const { id } = ctx.params
 
     const event = await services.deleteEvent(id, user._id)
 
