@@ -26,7 +26,7 @@ module.exports = () => {
   }
 
   const findOne = async conditions => {
-    const user = await userRepository.findOne(conditions)
+    const user = await userRepository.findOneWithEvent(conditions)
 
     return formatUser(user)
   }

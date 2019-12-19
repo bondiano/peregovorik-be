@@ -11,7 +11,26 @@ userRepository.getUserWithEvent = async function getAllWithEvents(id) {
       path: 'events',
       populate: {
         path: 'room',
-        select: 'roomNumber city equipment images',
+        select: 'roomNumber city equipment images capacity',
+      },
+    })
+    .exec()
+
+  return user
+}
+
+userRepository.findOneWithEvent = async function findOneWithEvent(
+  conditions = {},
+  projection = null,
+  options,
+) {
+  const user = await userModel
+    .findOne(conditions, projection, options)
+    .populate({
+      path: 'events',
+      populate: {
+        path: 'room',
+        select: 'roomNumber city equipment images capacity',
       },
     })
     .exec()
