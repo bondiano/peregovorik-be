@@ -111,7 +111,7 @@ module.exports = ({ roomsServices, usersServices }) => {
   }
 
   const applyToEvent = async (eventId, userId) => {
-    const user = await usersServices.findOne(userId)
+    const user = await usersServices.getById(userId)
 
     const isUserHasEvent = user.events.some(({ id }) => id === eventId)
 
@@ -132,7 +132,7 @@ module.exports = ({ roomsServices, usersServices }) => {
   }
 
   const denyFromEvent = async (eventId, userId) => {
-    const user = await usersServices.findOne(userId)
+    const user = await usersServices.getById(userId)
 
     const isUserHasEvent = user.events.some(({ id }) => id === eventId)
 
@@ -172,6 +172,10 @@ module.exports = ({ roomsServices, usersServices }) => {
       { events: { $eq: event._id } },
       { $pull: { events: { _id: event._id } } },
     )
+
+    await roomsServices.updateRoomById(event.room, {
+      $pull: { events: { _id: event._id } },
+    })
 
     await eventRepository.deleteById(event._id)
 
